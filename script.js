@@ -1,122 +1,133 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- Elegant Cursor Follower ---
+    const cursorDot = document.querySelector('.cursor-dot');
+    window.addEventListener('mousemove', e => {
+        cursorDot.style.left = `${e.clientX}px`;
+        cursorDot.style.top = `${e.clientY}px`;
+    });
+
+    // --- Scroll-Based Navbar Animation ---
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
     // --- Mobile Navigation Logic ---
     const navToggle = document.querySelector('.mobile-nav-toggle');
     const navLinks = document.querySelector('.nav-links');
-    const hamburger = document.querySelector('.hamburger');
-
     navToggle.addEventListener('click', () => {
         navLinks.classList.toggle('active');
-        hamburger.classList.toggle('active');
-        const isExpanded = navLinks.classList.contains('active');
-        navToggle.setAttribute('aria-expanded', isExpanded);
     });
-
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
             if (navLinks.classList.contains('active')) {
                 navLinks.classList.remove('active');
-                hamburger.classList.remove('active');
-                navToggle.setAttribute('aria-expanded', 'false');
             }
         });
     });
 
-    // --- Image Carousel Logic ---
-    const slides = document.querySelectorAll('.carousel-slide');
-    if (slides.length > 0) {
-        const container = document.querySelector('.carousel-container');
-        const nextBtn = document.querySelector('.next');
-        const prevBtn = document.querySelector('.prev');
-        const dotsContainer = document.querySelector('.carousel-dots');
-        let currentIndex = 0;
-        let slideInterval;
+    // --- Ken Burns Carousel Logic ---
+    const carouselSlides = document.querySelectorAll('.carousel-slide');
+    if (carouselSlides.length > 0) {
+        const nextBtn = document.querySelector('.carousel-button.next');
+        const prevBtn = document.querySelector('.carousel-button.prev');
+        let currentSlide = 0;
+        let slideInterval = setInterval(nextSlide, 5000);
 
-        slides.forEach((_, i) => {
-            const dot = document.createElement('button');
-            dot.classList.add('dot');
-            if (i === 0) dot.classList.add('active');
+        function goToSlide(n) {
+            carouselSlides[currentSlide].classList.remove('active');
+            currentSlide = (n + carouselSlides.length) % carouselSlides.length;
+            carouselSlides[currentSlide].classList.add('active');
+        }
+        function nextSlide() { goToSlide(currentSlide + 1); }
+        function prevSlide() { goToSlide(currentSlide - 1); }
+        function resetInterval() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        nextBtn.addEventListener('click', () => { nextSlide(); resetInterval(); });
+        prevBtn.addEventListener('click', () => { prevSlide(); resetInterval(); });
+    }
+    
+    // --- Testimonial Slider ---
+    const sliderContainer = document.querySelector('.testimonial-slider-container');
+    const testimonialSlides = document.querySelectorAll('.testimonial-slide');
+    const dotsContainer = document.querySelector('.testimonial-dots');
+
+    if (testimonialSlides.length > 0) {
+        let currentIndex = 0;
+        let testimonialInterval = setInterval(showNextTestimonial, 5000);
+
+        // Create dots
+        testimonialSlides.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.classList.add('testimonial-dot');
             dot.addEventListener('click', () => {
-                goToSlide(i);
-                resetInterval();
+                showTestimonial(i);
+                resetTestimonialInterval();
             });
             dotsContainer.appendChild(dot);
         });
 
-        const dots = document.querySelectorAll('.dot');
-        const updateDots = (index) => {
-            dots.forEach(dot => dot.classList.remove('active'));
-            dots[index].classList.add('active');
-        };
+        const dots = document.querySelectorAll('.testimonial-dot');
 
-        const goToSlide = (index) => {
-            container.style.transform = `translateX(-${index * 100}%)`;
+        function updateDots() {
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+        }
+        
+        function showTestimonial(index) {
             currentIndex = index;
-            updateDots(currentIndex);
-        };
+            const offset = -currentIndex * 100;
+            sliderContainer.style.transform = `translateX(${offset}%)`;
+            updateDots();
+        }
 
-        const nextSlide = () => {
-            currentIndex = (currentIndex + 1) % slides.length;
-            goToSlide(currentIndex);
-        };
-        const prevSlide = () => {
-            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-            goToSlide(currentIndex);
-        };
+        function showNextTestimonial() {
+            currentIndex = (currentIndex + 1) % testimonialSlides.length;
+            showTestimonial(currentIndex);
+        }
 
-        nextBtn.addEventListener('click', () => { nextSlide(); resetInterval(); });
-        prevBtn.addEventListener('click', () => { prevSlide(); resetInterval(); });
+        function resetTestimonialInterval() {
+            clearInterval(testimonialInterval);
+            testimonialInterval = setInterval(showNextTestimonial, 5000);
+        }
 
-        const startInterval = () => { slideInterval = setInterval(nextSlide, 3000); };
-        const resetInterval = () => { clearInterval(slideInterval); startInterval(); };
-
-        startInterval();
-        goToSlide(0);
+        showTestimonial(0); // Initialize
     }
 
     // --- Scroll & Counter Animation Logic ---
     const animatedCounters = document.querySelectorAll('.counter');
     const sections = document.querySelectorAll('section');
+    let counterAnimationStarted = false;
 
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-
-    const sectionObserver = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                
-                // --- COUNTER ANIMATION TRIGGER ---
-                if (entry.target.id === 'stats' && animatedCounters.length > 0) {
+                if (entry.target.id === 'stats' && !counterAnimationStarted) {
                     startCounterAnimation();
-                    // No need to unobserve stats, as a flag prevents re-running
-                }
-
-                // Unobserve general sections after animation for performance
-                if(entry.target.id !== 'stats') {
-                    observer.unobserve(entry.target);
+                    counterAnimationStarted = true;
                 }
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.1 });
 
-    sections.forEach(section => {
-        sectionObserver.observe(section);
-    });
+    sections.forEach(section => observer.observe(section));
 
-    let counterAnimationStarted = false;
     function startCounterAnimation() {
-        if (counterAnimationStarted) return;
-        counterAnimationStarted = true;
-
         animatedCounters.forEach(counter => {
             const target = +counter.getAttribute('data-target');
             let current = 0;
-            const duration = 2000; // 2 seconds
-            const increment = target / (duration / 16); // ~60 frames per second
+            const duration = 2000;
+            const increment = target / (duration / 16);
 
             const updateCount = () => {
                 current += increment;

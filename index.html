@@ -3,25 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Anchor / Emcee / Host</title>
+    <title>Priyanka Dobhal - Anchor / Emcee / Host</title>
     <link rel="stylesheet" href="style.css">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Playfair+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
 
     <!-- Navigation Bar -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#" class="nav-brand">Priyanka Dobhal</a>
             <button class="mobile-nav-toggle" aria-controls="nav-links" aria-expanded="false">
                  <div class="hamburger"></div>
             </button>
             <ul id="nav-links" class="nav-links">
+                <li><a href="#about">About</a></li>
                 <li><a href="#events">Events</a></li>
                 <li><a href="#testimonials">Testimonials</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -31,16 +34,27 @@
 
     <!-- Hero Section -->
     <header class="hero-section">
-        <img src="/images/pprofile.jpg" alt="Your Name - Profile Photo" class="profile-photo">
+        <img src="/images/pprofile.jpg" alt="Priyanka Dobhal - Profile Photo" class="profile-photo">
         <h1 class="name">Priyanka Dobhal</h1>
         <p class="title">Anchor / Emcee / Host</p>
     </header>
 
     <main>
+        <!-- About Me Section -->
+        <section id="about" class="about-section">
+            <div class="container about-container">
+                <div class="about-text">
+                    <h2>Welcome!</h2>
+                    <p>With a passion for captivating audiences and a commitment to flawless execution, I bring a unique blend of energy, elegance, and professionalism to every stage. Whether it's a high-profile corporate conference, a glamorous brand launch, or an intimate family celebration, my goal is to create an unforgettable experience that resonates long after the curtains close.</p>
+                    <img src="/images/mic.jpg" alt="Signature" class="signature-img">
+                </div>
+            </div>
+        </section>
+
         <!-- Image Carousel Section -->
         <section class="carousel-section">
             <div class="carousel-container">
-                <div class="carousel-slide">
+                <div class="carousel-slide active">
                     <img src="/images/co1.jpg" alt="Event photo 1">
                 </div>
                 <div class="carousel-slide">
@@ -53,9 +67,8 @@
                     <img src="/images/co4.jpg" alt="Event photo 4">
                 </div>
             </div>
-            <button class="carousel-button prev">&#10094;</button>
-            <button class="carousel-button next">&#10095;</button>
-            <div class="carousel-dots"></div>
+            <button class="carousel-button prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="carousel-button next"><i class="fas fa-chevron-right"></i></button>
         </section>
 
         <!-- Events Section -->
@@ -93,9 +106,34 @@
                     <h3>Brand Events</h3>
                     <p>As the face of your brand event, I amplify your message and create a dynamic experience for your audience. I specialize in brand activations, influencer meets, and promotional campaigns.</p>
                     <div class="photo-grid">
-                        <img src="/images/b1.jpg" alt="Brand     Event 1">
+                        <img src="/images/b1.jpg" alt="Brand Event 1">
                         <img src="/images/b2.jpg" alt="Brand Event 2">
                         <img src="/images/b3.jpg" alt="Brand Event 3">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Client Logos Section - NEW -->
+        <section id="clients" class="clients-section">
+            <div class="container">
+                <h2>Trusted By Leading Brands</h2>
+                <div class="logo-scroller">
+                    <div class="logo-scroller-inner">
+                        <img src="/images/The Top 7 FMCG Companies In India Ruling The Market.jpg" alt="Client Logo 1">
+                        <img src="/images/Britannia Industries Logo PNG vector in SVG, PDF, AI, CDR format.jpg" alt="Client Logo 2">
+                        <img src="/images/Download Pepsi logo (2014) logo in vector for free - Brandlogos_net.jpg" alt="Client Logo 3">
+                        <img src="/images/UltraTech Cement Logo (Aditya Birla) - PNG Logo Vector Brand Downloads (SVG, EPS).jpg" alt="Client Logo 4">
+                        <img src="/images/SBI _ State Bank of India Logo PNG Vector (CDR) Free Download.jpg" alt="Client Logo 6">
+                        <img src="/images/Indian Oil Logo (IOCL) - PNG Logo Vector Brand Downloads (SVG, EPS).jpg" alt="Client Logo 7">
+                        <!-- Duplicate logos for seamless scroll -->
+                         <img src="/images/The Top 7 FMCG Companies In India Ruling The Market.jpg" alt="Client Logo 1">
+                        <img src="/images/Britannia Industries Logo PNG vector in SVG, PDF, AI, CDR format.jpg" alt="Client Logo 2">
+                        <img src="/images/Download Pepsi logo (2014) logo in vector for free - Brandlogos_net.jpg" alt="Client Logo 3">
+                        <img src="/images/UltraTech Cement Logo (Aditya Birla) - PNG Logo Vector Brand Downloads (SVG, EPS).jpg" alt="Client Logo 4">
+                        <img src="/images/Indian Oil Logo (IOCL) - PNG Logo Vector Brand Downloads (SVG, EPS).jpg" alt="Client Logo 5">
+                        <img src="/images/SBI _ State Bank of India Logo PNG Vector (CDR) Free Download.jpg" alt="Client Logo 6">
+                        <!-- Duplicate logos for seamless scroll -->
                     </div>
                 </div>
             </div>
@@ -105,20 +143,23 @@
         <section id="testimonials" class="testimonials-section">
             <div class="container">
                 <h2>What Clients Say</h2>
-                <div class="testimonial-container">
-                    <div class="testimonial">
-                        <p>"Professional, engaging, and full of energy! She kept our corporate annual meet flowing smoothly, ensuring every segment started on time and kept the audience hooked. Her ability to connect with people across all levels made the event memorable for everyone."</p>
-                        <cite>– Rishabh Shah</cite>
-                    </div>
-                    <div class="testimonial">
-                        <p>"She turned our wedding reception into a magical evening! From heartfelt introductions to fun interactive games, she made sure everyone felt involved. Guests still talk about how entertaining and warm she was."</p>
-                        <cite>– Rohan Rawat</cite>
-                    </div>
-                    <div class="testimonial">
-                        <p>"Her charm and stage presence made our cultural fest a huge success. She handled the crowd effortlessly and kept the energy alive till the very end. A true professional who knows how to make an event unforgettable."</p>
-                        <cite>– Bhawna Gaur</cite>
+                <div class="testimonial-wrapper">
+                    <div class="testimonial-slider-container">
+                        <div class="testimonial-slide">
+                            <p>"Professional, engaging, and full of energy! She kept our corporate annual meet flowing smoothly, ensuring every segment started on time and kept the audience hooked."</p>
+                            <cite>– Rishabh Shah</cite>
+                        </div>
+                        <div class="testimonial-slide">
+                            <p>"She turned our wedding reception into a magical evening! From heartfelt introductions to fun interactive games, she made sure everyone felt involved. Guests still talk about how entertaining she was."</p>
+                            <cite>– Rohan Rawat</cite>
+                        </div>
+                        <div class="testimonial-slide">
+                            <p>"Her charm and stage presence made our cultural fest a huge success. She handled the crowd effortlessly and kept the energy alive till the very end. A true professional."</p>
+                            <cite>– Bhawna Gaur</cite>
+                        </div>
                     </div>
                 </div>
+                <div class="testimonial-dots"></div>
             </div>
         </section>
 
@@ -140,7 +181,6 @@
             </div>
         </section>
 
-
         <!-- Contact Section -->
         <section id="contact" class="contact-section">
             <div class="container">
@@ -159,12 +199,12 @@
     <!-- Footer -->
     <footer class="site-footer">
         <div class="social-links">
-            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="YouTube" target="_blank"><i class="fab fa-youtube"></i></a>
         </div>
-        <p>&copy; 2025 Priyanka Dobhal. All Rights Reserved.</p>
+        <p>&copy; 2025 Priyanka Dobhal. All Rights Reserved. Designed by a World-Class AI Expert.</p>
     </footer>
 
     <script src="script.js"></script>
